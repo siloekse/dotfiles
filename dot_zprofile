@@ -1,0 +1,48 @@
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+##
+# Exports
+# -------
+
+# Explicitly set XDG variables.
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+
+# Pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+if [[ -d "${PYENV_ROOT}" ]]; then
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
+
+# Poetry
+export POETRY_CONFIG_DIR="${XDG_CONFIG_HOME}/poetry"
+export POETRY_HOME="${XDG_DATA_HOME}/poetry"
+
+# Pipenv
+export PIPENV_VENV_IN_PROJECT=1
+
+# User installed binaries
+export PATH="${HOME}/.local/bin:${PATH}"
+
+##
+# Certificates
+# ------------
+
+# Check if custom CA bundle exists.
+if [[ -f "/etc/ssl/cert.pem" ]]; then
+  export CUSTOM_CA_BUNDLE="/etc/ssl/certs.pem"
+  export SSL_CERT_FILE="${CUSTOM_CA_BUNDLE}"
+  export CURL_CA_BUNDLE="${CUSTOM_CA_BUNDLE}"
+  export REQUESTS_CA_BUNDLE="${CUSTOM_CA_BUNDLE}"
+  export NODE_EXTRA_CA_CERTS="${CUSTOM_CA_BUNDLE}"
+fi
+
+# Check if unsafe OpenSSL config exists.
+if [[ -f "${XDG_CONFIG_HOME}/openssl/unsafe.cnf" ]]; then
+  export OPENSSL_CONF="${XDG_CONFIG_HOME}/openssl/unsafe.cnf"
+fi
