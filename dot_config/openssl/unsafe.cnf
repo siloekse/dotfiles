@@ -1,0 +1,14 @@
+# This configuration file re-enables unsafe legacy renegotiation option, which
+# is disabled by default in OpenSSL 1.1.1 and later. This option is required by
+# some terribly broken firewalls and whatnot.
+
+openssl_conf = openssl_init
+
+[openssl_init]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+Options = UnsafeLegacyRenegotiation
