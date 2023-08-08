@@ -35,7 +35,7 @@ export PATH="${HOME}/.local/bin:${PATH}"
 
 # Check if custom CA bundle exists.
 if [[ -f "/etc/ssl/cert.pem" ]]; then
-  export CUSTOM_CA_BUNDLE="/etc/ssl/certs.pem"
+  export CUSTOM_CA_BUNDLE="/etc/ssl/cert.pem"
   export SSL_CERT_FILE="${CUSTOM_CA_BUNDLE}"
   export CURL_CA_BUNDLE="${CUSTOM_CA_BUNDLE}"
   export REQUESTS_CA_BUNDLE="${CUSTOM_CA_BUNDLE}"
