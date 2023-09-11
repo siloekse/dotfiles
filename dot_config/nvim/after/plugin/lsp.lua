@@ -1,3 +1,6 @@
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
@@ -5,6 +8,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
+  'jedi-language-server',
 })
 
 -- Fix Undefined global 'vim'
