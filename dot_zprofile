@@ -43,6 +43,6 @@ if [[ -f "/etc/ssl/cert.pem" ]]; then
 fi
 
 # Check if unsafe OpenSSL config exists.
-if [[ -f "${XDG_CONFIG_HOME}/openssl/unsafe.cnf" ]]; then
-  export OPENSSL_CONF="${XDG_CONFIG_HOME}/openssl/unsafe.cnf"
-fi
+#if [[ -f "${XDG_CONFIG_HOME}/openssl/unsafe.cnf" ]]; then
+#  export OPENSSL_CONF="${XDG_CONFIG_HOME}/openssl/unsafe.cnf"
+#fi

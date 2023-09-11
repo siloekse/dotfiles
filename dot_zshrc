@@ -83,6 +83,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   evalcache
   git
+  gitfast
+  jump
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -114,6 +116,8 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+alias J="jump"
+alias M="mark"
 
 ##
 # Bootstrappers
