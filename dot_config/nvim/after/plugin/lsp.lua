@@ -8,7 +8,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
-  'jedi-language-server',
+  'pyright',
 })
 
 -- Fix Undefined global 'vim'
@@ -29,10 +29,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
   ["<C-Space>"] = cmp.mapping.complete(),
 })
-
-cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
@@ -63,6 +62,20 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
+
+lsp.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 10000,
+  },
+  servers = {
+    ['pyright'] = {'python'},
+    -- ['rust_analyzer'] = {'rust'},
+    -- if you have a working setup with null-ls
+    -- you can specify filetypes it can format.
+    -- ['null-ls'] = {'javascript', 'typescript'},
+  }
+})
 
 lsp.setup()
 
