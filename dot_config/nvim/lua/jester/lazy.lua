@@ -1,3 +1,4 @@
+-- Bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -10,3 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+
+-- Init
+require("lazy").setup({
+    spec = {
+        {import = "jester.plugins"},
+        {import = "jester.plugins.lsp"},
+        {import = "jester.plugins.debug"},
+        {import = "jester.plugins.debug.core"},
+        {import = "jester.plugins.debug.lng"},
+    },
+})

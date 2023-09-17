@@ -1,4 +1,2 @@
-require("jester")
-require("lazy").setup("plugins")
-
-vim.cmd[[colorscheme catppuccin]]
+require("jester.core") -- base config
+require("jester.lazy") -- plugins
