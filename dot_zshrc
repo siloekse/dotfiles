@@ -85,6 +85,7 @@ plugins=(
   git
   gitfast
   jump
+  norce
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -118,6 +119,15 @@ fi
 #
 alias J="jump"
 alias M="mark"
+alias vim="nvim"
+alias cm="chezmoi"
+alias d="podman"
+alias db="d build"
+alias dbl="db --platform linux/amd64"
+alias k="kubectl"
+alias tree="tree -CA"
+alias less="less -R"
+alias printenv="printenv | LC_ALL=C sort"
 
 ##
 # Bootstrappers

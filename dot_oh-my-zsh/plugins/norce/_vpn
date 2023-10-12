@@ -1,0 +1,16 @@
+#compdef vpn
+_vpn() {
+  local -a commands
+  commands=(
+    'kill:Kill the VPN client by unloading its LaunchAgents'
+    'revive:Revive the VPN client by loading its LaunchAgents'
+  )
+
+  if (( CURRENT == 2 )); then
+    _describe -t commands 'command' commands
+  fi
+
+  return 0
+}
+
+_vpn
