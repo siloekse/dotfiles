@@ -128,6 +128,17 @@ alias k="kubectl"
 alias tree="tree -CA"
 alias less="less -R"
 alias printenv="printenv | LC_ALL=C sort"
+alias ls="lsd"
+alias ll="ls -l"
+alias la="ls -a"
+alias lla="ls -la"
+alias lt="ls --tree"
+#
+# Zoxide for cd
+eval "$(zoxide init --cmd cd zsh)"
+
+# Homebrew
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
 ##
 # Bootstrappers
@@ -138,20 +149,6 @@ alias printenv="printenv | LC_ALL=C sort"
 # Initialize pyenv if installed.
 (( ${+commands[pyenv]} )) && _evalcache pyenv init - --no-rehash
 
-##
-# VS Code integrated terminal hacks
-# ---------------------------------
-# TODO: Consider making this into an omz plugin.
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  # This is a silly hack to ensure direnv environments are initialized when a
-  # new integrated terminal is opened. The underlying problem is that when an
-  # integrated terminal is initialized, it is started in the workspace root.
-  # However, direnv requires actively navigating to that directory to trigger
-  # the whole environment initialization procedure.
-  if [[ -f "$PWD/.envrc" ]]; then
-    pushd ..  >/dev/null 2>&1 && popd >/dev/null 2>&1 || true
-  fi
-fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

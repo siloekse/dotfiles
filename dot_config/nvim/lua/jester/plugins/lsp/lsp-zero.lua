@@ -20,6 +20,12 @@ return {
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
 
+            -- Language servers
+            {'ranjithshegde/ccls.nvim'},
+
+            -- Rust lsp
+            {'simrat39/rust-tools.nvim'},
+
         },
         config = function()
             require("mason").setup()
@@ -33,6 +39,8 @@ return {
                 'tsserver',
                 'rust_analyzer',
                 'pyright',
+                'ruff_lsp',
+                'clangd',
             })
 
             -- Fix Undefined global 'vim'
@@ -74,8 +82,15 @@ return {
 
             lsp.on_attach(function(client, bufnr)
                 local opts = {buffer = bufnr, remap = false}
+                local builtin = require('telescope.builtin')
 
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                -- vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+                -- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
+                -- vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
+                vim.keymap.set("n", "gi", builtin.lsp_implementations, opts)
+                -- vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+                vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
                 vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
                 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -85,7 +100,25 @@ return {
                 vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                 vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+                if client.name == 'ruff_lsp' then
+                    -- Disable hover in favor of pyright
+                    -- client.server_capabilities.hoverProvider = false
+                end
             end)
+
+            require('lspconfig').pyright.setup {
+                settings = {
+                    pyright = {
+                        disableOrganizeImports = true,
+                    },
+                    python = {
+                        analysis = {
+                            ignore = { '*' },
+                        },
+                    },
+                },
+            }
 
             lsp.format_on_save({
                 format_opts = {
@@ -93,8 +126,9 @@ return {
                     timeout_ms = 10000,
                 },
                 servers = {
-                    ['pyright'] = {'python'},
-                    -- ['rust_analyzer'] = {'rust'},
+                    -- ['pyright'] = {'python'},
+                    ['ruff_lsp'] = {'python'},
+                    ['rust_analyzer'] = {'rust'},
                     -- if you have a working setup with null-ls
                     -- you can specify filetypes it can format.
                     -- ['null-ls'] = {'javascript', 'typescript'},

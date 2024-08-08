@@ -1,7 +1,7 @@
 return {
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.0',
+        tag = '0.1.4',
         dependencies = {
             {'nvim-lua/plenary.nvim'}
         },
@@ -13,6 +13,7 @@ return {
                 builtin.grep_string({ search = vim.fn.input("Grep > ") })
             end)
             vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+            vim.keymap.set('n', '<leader>lb', builtin.buffers, {})
         end,
     },
 }
