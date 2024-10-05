@@ -27,3 +27,11 @@ zoxide init fish | source
 starship init fish | source
 direnv hook fish | source
 fzf --fish | source
+
+source $HOME/.cargo/env.fish
+
+# Transient prompt (Starship command)
+enable_transience
+
+# Created by `pipx` on 2024-10-01 10:05:19
+set PATH $PATH /Users/sigl/.local/bin

@@ -8,6 +8,8 @@ config.background = {
     source = {
       File = '/Users/sigl/Pictures/wallpapers/colorful-abstract-ai-art-4k-wallpaper-uhdpaper.com-16@0@i.jpg'
     },
+    vertical_align = 'Middle',
+    horizontal_align = 'Center',
   },
   {
     source = {

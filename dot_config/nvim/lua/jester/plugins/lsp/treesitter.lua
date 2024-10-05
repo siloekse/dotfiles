@@ -15,7 +15,8 @@ return {
                     "heex",
                     "javascript",
                     "html",
-                    "python"
+                    "python",
+                    "rust",
                 },
                 sync_install = false,
                 highlight = { enable = true },

@@ -4,6 +4,9 @@ return {
         opts = {},
         config = function()
             vim.notify = require("notify")
+            vim.notify.setup{
+                render = "compact",
+            }
         end,
     },
 }
