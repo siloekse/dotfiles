@@ -36,11 +36,10 @@ return {
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    'tsserver',
                     'pyright',
                     'ruff_lsp',
                     'clangd',
-                    'rust_analyzer',
+                    -- 'rust_analyzer',
                 },
             })
 
@@ -125,12 +124,12 @@ return {
             }
             require("lspconfig").clangd.setup {}
             require("lspconfig").ruff_lsp.setup { on_attach = require("lsp-format").on_attach }
-            require("lspconfig").rust_analyzer.setup { 
-                on_attach = require("lsp-format").on_attach,
-                settings = {
-                    inlay_hints = {enable = true},
-                }
-            }
+            -- require("lspconfig").rust_analyzer.setup { 
+            --    on_attach = require("lsp-format").on_attach,
+            --    settings = {
+            --        inlay_hints = {enable = true},
+            --    }
+            --}
 
             lsp.setup()
 
