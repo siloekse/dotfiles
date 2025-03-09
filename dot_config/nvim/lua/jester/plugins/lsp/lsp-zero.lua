@@ -39,6 +39,7 @@ return {
                     'pyright',
                     'ruff_lsp',
                     'clangd',
+                    'zls',
                     -- 'rust_analyzer',
                 },
             })
@@ -128,12 +129,7 @@ return {
             }
             require("lspconfig").clangd.setup {}
             require("lspconfig").ruff_lsp.setup { on_attach = require("lsp-format").on_attach }
-            -- require("lspconfig").rust_analyzer.setup { 
-            --    on_attach = require("lsp-format").on_attach,
-            --    settings = {
-            --        inlay_hints = {enable = true},
-            --    }
-            --}
+            require("lspconfig").zls.setup {}
 
             lsp.setup()
 
