@@ -37,7 +37,7 @@ return {
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     'pyright',
-                    'ruff_lsp',
+                    'ruff',
                     'clangd',
                     'zls',
                     -- 'rust_analyzer',
@@ -69,8 +69,8 @@ return {
                 -- toggle completion menu
                 ['<C-e>'] = cmp_action.toggle_completion(),
 
-                -- tab complete
-                ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                -- complete
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 -- ['<Tab>'] = cmp_action.tab_complete(),
                 -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -108,7 +108,7 @@ return {
                 end, { desc = '[lsp] format buffer' } )
                  
 
-                if client.name == 'ruff_lsp' then
+                if client.name == 'ruff' then
                     -- Disable hover in favor of pyright
                     -- client.server_capabilities.hoverProvider = false
                 end
@@ -128,9 +128,14 @@ return {
                 },
             }
             require("lspconfig").clangd.setup {}
-            require("lspconfig").ruff_lsp.setup { on_attach = require("lsp-format").on_attach }
+            require("lspconfig").ruff.setup { on_attach = require("lsp-format").on_attach }
+            -- require("lspconfig").rust_analyzer.setup { 
+            --    on_attach = require("lsp-format").on_attach,
+            --    settings = {
+            --        inlay_hints = {enable = true},
+            --    }
+            --}
             require("lspconfig").zls.setup {}
-
             lsp.setup()
 
             vim.diagnostic.config({
