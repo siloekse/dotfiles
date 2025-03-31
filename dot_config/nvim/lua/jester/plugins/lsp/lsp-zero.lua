@@ -11,20 +11,25 @@ return {
             -- Autocompletion
             {
                 'neovim/nvim-lspconfig',
+                dependencies = { 'saghen/blink.cmp' },
+
+                -- example using `opts` for defining servers
+                opts = {
+                    servers = {
+                        lua_ls = {}
+                    }
+                },
+                config = function(_, opts)
+                    local lspconfig = require('lspconfig')
+                    for server, config in pairs(opts.servers) do
+                        -- passing config.capabilities to blink.cmp merges with the capabilities in your
+                        -- `opts[server].capabilities, if you've defined it
+                        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+                        lspconfig[server].setup(config)
+                    end
+                end
+
             },
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'hrsh7th/cmp-cmdline'},
-            {'hrsh7th/nvim-cmp'},
-
-            -- For vsnip users.
-            {'hrsh7th/cmp-vsnip'},
-            {'hrsh7th/vim-vsnip'},
-
-            -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            -- {'rafamadriz/friendly-snippets'},
 
             -- Language servers
             {'ranjithshegde/ccls.nvim'},
@@ -47,44 +52,6 @@ return {
             local lsp = require("lsp-zero")
 
             require("lsp-format").setup {}
-
-            local cmp = require('cmp')
-            local cmp_action = require('lsp-zero').cmp_action()
-
-            cmp.setup({
-              sources = {
-                {name = 'nvim_lsp'},
-              },
-              snippet = {
-                expand = function(args)
-                  require('luasnip').lsp_expand(args.body)
-                end,
-              },
-              mapping = cmp.mapping.preset.insert({
-                -- ["<C-Space>"] = cmp.mapping.complete(),
-                -- confirm completion item
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                -- ['<C-y>'] = cmp.mapping.confirm({select = false}),
-
-                -- toggle completion menu
-                ['<C-e>'] = cmp_action.toggle_completion(),
-
-                -- complete
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                -- ['<Tab>'] = cmp_action.tab_complete(),
-                -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-
-                -- navigate between snippet placeholder
-                ['<C-d>'] = cmp_action.luasnip_jump_forward(),
-                ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-                -- scroll documentation window
-                ['<C-f>'] = cmp.mapping.scroll_docs(-5),
-                ['<C-d>'] = cmp.mapping.scroll_docs(5),
-              }),
-            })
 
             lsp.on_attach(function(client, bufnr)
                 local opts = {buffer = bufnr, remap = false}
