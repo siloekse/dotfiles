@@ -1,0 +1,17 @@
+{{ if eq .chezmoi.os "darwin" }}
+Host *
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{ end }}
+{{ if hasPrefix "TOS-" .chezmoi.hostname }}
+Host gpu
+    HostName {{ onepasswordRead "op://work/tos1041/url" }}
+    User {{ onepasswordRead "op://work/tos1041/username" }}
+    LocalForward 8889 localhost:8888
+    LocalForward 6006 localhost:6006
+    IdentityFile ~/.ssh/norce_ed25519
+
+Host arcvat
+    HostName {{ onepasswordRead "op://work/arcvat-server/url" }}
+    User {{ onepasswordRead "op://work/arcvat-server/username" }}
+    IdentityFile ~/.ssh/norce_ed25519
+{{ end }}
